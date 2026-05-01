@@ -12,6 +12,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { T, typography } from "./theme";
 
 // ─── PATIENT DATA ─────────────────────────────────────────────────────────────
 const PATIENT = {
@@ -165,15 +166,6 @@ async function streamAI(prompt, onChunk, signal) {
   }
 }
 
-// ─── DESIGN TOKENS ───────────────────────────────────────────────────────────
-const T = {
-  bg: "#F7F8FA", surface: "#FFFFFF", border: "#E4E8EF",
-  navy: "#0B1F3A", teal: "#0891B2", pink: "#E91E8C",
-  green: "#059669", amber: "#D97706", red: "#DC2626",
-  slate: "#475569", muted: "#94A3B8", light: "#EEF2F7",
-  text: "#0F172A", sub: "#64748B",
-};
-
 const STAGES = [
   { id: "prechart", label: "Pre-Chart",       icon: "🔍" },
   { id: "scribe",   label: "Scribe & SOAP",   icon: "🎙" },
@@ -199,25 +191,23 @@ export default function App() {
   const revenue     = acceptedICD.reduce((s, c) => s + c.revenue, 0) + acceptedCPT.reduce((s, c) => s + c.revenue, 0);
 
   return (
-    <div style={{ fontFamily: "'Lato','Segoe UI',sans-serif", background: T.bg, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+    <div style={{ fontFamily: typography.sans, background: T.bg, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Playfair+Display:wght@600;700&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}
         @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
         @keyframes shimmer{0%,100%{opacity:.5}50%{opacity:1}}
-        .btn{border:none;cursor:pointer;border-radius:8px;font-family:'Lato',sans-serif;font-weight:700;transition:all .15s}
+        .btn{border:none;cursor:pointer;border-radius:8px;font-family:${typography.sans};font-weight:700;transition:all .15s}
         .btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
-        .card{background:#fff;border-radius:12px;border:1px solid ${T.border};box-shadow:0 1px 6px #00000008}
+        .card{background:${T.surface};border-radius:12px;border:1px solid ${T.border};box-shadow:0 1px 6px #00000008}
         .row-hover:hover{background:#F8FAFC!important}
-        textarea,input{font-family:'Lato',sans-serif}
+        textarea,input{font-family:${typography.sans}}
       `}</style>
 
       {/* TOP NAV */}
       <header style={{ background: T.navy, padding: "0 28px", display: "flex", alignItems: "center", height: 56, flexShrink: 0, borderBottom: `3px solid ${T.pink}`, gap: 0 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginRight: 32 }}>
           <div style={{ width: 3, height: 28, background: T.pink, borderRadius: 2 }} />
-          <span style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: "'Playfair Display',serif" }}>AccuChart</span>
+          <span style={{ fontSize: 18, fontWeight: 900, color: "#fff", fontFamily: typography.brand }}>AccuChart</span>
           <span style={{ fontSize: 10, color: T.teal, letterSpacing: "2px", fontWeight: 700 }}>PROVIDER</span>
         </div>
 
